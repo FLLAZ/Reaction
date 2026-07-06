@@ -1,0 +1,294 @@
+<!--
+Good evening.
+FLLAZ is looking for engineers like you.
+Join us https://fllaz.com/
+ーーーーーーーーーーーーーーーーーーーーーーーー
+こんばんは。
+FLLAZはあなたのようなエンジニアを募集しています。
+ぜひご参加ください https://fllaz.com/
+-->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Reaction Spammer</title>
+  <meta name="theme-color" content="#a4a8d4" />
+  <meta name="description" content="Discord Reaction Spammer"/>
+  <link rel="icon" href="favicon.ico"/>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon-152x152.png"/>
+  <meta property="og:site_name" content="FLLAZ" />
+  <meta property="og:title" content="Reaction Spammer" />
+  <meta property="og:description" content="Discord Reaction Spammer｜Created by FLLAZ" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta property="og:image" content="https://i.imgur.com/syRRIMS.png"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #202225; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb { background: #5865f2; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #7289da; }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #2f3136, #1e1f22);
+      color: #fff;
+      margin: 0; padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      /* disable text selection globally except on inputs */
+      user-select: none;
+    }
+
+    /* allow selecting text inside form fields */
+    input, textarea, select {
+      user-select: text;
+    }
+    .card {
+      background: #36393f;
+      padding: 32px;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(0,0,0,.5);
+      width: 100%;
+      max-width: 600px;
+      animation: fadeIn .8s ease;
+      overflow: auto;
+      max-height: 95vh;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    h2 { color: #adb8ff; text-align: center; margin: 0 0 24px; font-weight: 600; }
+    label { display: block; margin-top: 18px; font-size: 14px; font-weight: 500; }
+
+    input[type="text"], input[type="password"], textarea {
+      width:100%; padding:10px; margin-top:6px; padding-right:36px;
+      border-radius:8px; border:none;
+      background:#202225; color:#fff;
+      font-family:monospace; resize:vertical;
+    }
+    input[type="number"] {
+      width: 100%; padding: 10px; margin-top: 6px;
+      border-radius: 8px; border: 1px solid #202225;
+      background: #202225; color: #fff;
+      font-family: monospace; appearance: textfield; -moz-appearance: textfield;
+    }
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+      -webkit-appearance: none; margin: 0;
+    }
+
+    .input-group {
+      display: flex; align-items: center; margin-top: 6px;
+    }
+    .input-group input {
+      flex: 1; margin: 0;
+    }
+    .toggle-btn {
+      background: #4f545c; border: none; border-radius: 8px;
+      color: #fff; padding: 10px; margin-left: 8px; cursor: pointer;
+      font-size: 16px; transition: background .3s;
+    }
+    .toggle-btn:hover {
+      background: #5a5f68;
+    }
+
+    .row { display: flex; gap: 16px; align-items: center; margin-top: 12px; }
+    .row > div { flex: 1; }
+
+    .checkbox-container {
+      display: flex; align-items: center; gap: 8px; cursor: pointer;
+      font-size: 14px; user-select: none; margin-top: 12px;
+    }
+    .checkbox-container input {
+      appearance: none; width: 36px; height: 18px; background: #4f545c;
+      border-radius: 18px; position: relative; transition: background .3s ease;
+    }
+    .checkbox-container:hover input { background: #5a5f68; }
+    .checkbox-container input::before {
+      content: ''; position: absolute; width: 14px; height: 14px;
+      border-radius: 50%; background: #fff; top: 2px; left: 2px;
+      transition: transform .3s cubic-bezier(.68,-.55,.27,1.55);
+    }
+    .checkbox-container input:checked { background: #7289da; }
+    .checkbox-container input:checked::before { transform: translateX(18px); }
+    .checkbox-container input:checked + span { color: #adb8ff; }
+
+    button {
+      padding: 10px 16px; border: none; border-radius: 8px;
+      color: #fff; font-weight: 600; font-size: 14px;
+      cursor: pointer; transition: all .3s;
+    }
+    button.primary {
+      margin-top: 24px; width: 100%; padding: 14px;
+      background: linear-gradient(135deg,#6d75ff,#5865f2);
+      font-size: 18px; box-shadow: 0 4px 15px rgba(88,101,242,.4);
+    }
+    button.primary:hover {
+      background: linear-gradient(135deg,#7d89ff,#4e57e0);
+      box-shadow: 0 6px 22px rgba(88,101,242,.6);
+      transform: translateY(-2px);
+    }
+    button.secondary {
+      background: #4f545c;
+    }
+    button.secondary:hover {
+      background: #5a5f68;
+    }
+    button.danger {
+        background: #e74c3c;
+    }
+    button.danger:hover {
+        background: #c0392b;
+    }
+    button:disabled {
+      cursor: not-allowed; background: #3e4147 !important; color: #9a9a9a;
+      transform: none; box-shadow: none;
+    }
+    .button-group {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-top: 12px;
+    }
+
+    #channelListContainer {
+      margin-top: 12px; padding: 10px; max-height: 250px;
+      overflow-y: auto; background: #202225; border-radius: 8px;
+      border: 1px solid #2f3136;
+    }
+    .channel-category {
+      padding: 4px 8px; color: #96989d; font-size: 12px;
+      font-weight: 600; text-transform: uppercase; margin-top: 10px;
+    }
+    .channel-category:first-child { margin-top: 0; }
+    .channel-item {
+      display: block; padding: 6px 8px 6px 18px;
+      border-radius: 5px; transition: background-color .2s;
+    }
+    .channel-item.disabled { opacity: 0.5; cursor: not-allowed; }
+    @media (hover: hover) {
+      .channel-item:not(.disabled):hover { background-color: #36393f; }
+    }
+    .channel-item label { margin-top: 0; display: flex; align-items: center; gap: 8px; cursor: pointer; font-weight: 500; position: relative;}
+    .channel-item span { color: #96989d; }
+    .channel-item label span { color: #dcddde; }
+    .voice-channel-item {
+      display: block; padding: 6px 8px 6px 18px;
+      border-radius: 5px; transition: background-color .2s;
+    }
+    .voice-channel-item.disabled { opacity: 0.5; cursor: not-allowed; }
+    @media (hover: hover) {
+      .voice-channel-item:not(.disabled):hover { background-color: #36393f; }
+    }
+    .voice-channel-item label { margin-top: 0; display: flex; align-items: center; gap: 8px; cursor: pointer; font-weight: 500; position: relative; }
+    .voice-channel-icon {
+      font-size: 18px; margin-right: -8px; opacity: 0.6;
+      transition: all .2s ease;
+    }
+    .voice-channel-item.selected .voice-channel-icon {
+      opacity: 1; color: #7289da;
+    }
+    .voice-channel-item span { color: #96989d; }
+    .voice-channel-item.selected span { color: #dcddde; }
+
+    /* Custom checkbox styles */
+    .custom-checkbox-item input[type="checkbox"] {
+      opacity: 0; position: absolute;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .custom-checkbox-item input[type="checkbox"]:focus { outline: none; }
+    .custom-checkbox-item input[type="checkbox"]:active { outline: none; }
+    .custom-checkbox-item label::before {
+      content: '';
+      width: 16px; height: 16px;
+      border: 2px solid #4f545c;
+      border-radius: 3px;
+      background: transparent;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.2s ease;
+      color: #fff;
+      font-size: 11px;
+      font-weight: bold;
+    }
+    .custom-checkbox-item label.checked::before {
+      content: '✓';
+      background: #7289da;
+      border-color: #7289da;
+    }
+
+    #log { margin-top: 20px; padding: 10px; height: 150px; overflow-y: auto; background: #202225; border-radius: 10px; font-family: monospace; font-size: 12px; resize: vertical; display: flex; flex-direction: column; }
+    .log-line { padding: 2px 0; white-space: pre-wrap; word-break: break-word; display: flex; }
+    .log-timestamp { color: #ffffff; flex-shrink: 0; }
+    .log-message { flex: 1; }
+    .log-line.log-info { color: #ffffff; }
+    .log-line.log-error { color: #ff6b6b; }
+    .log-line.log-warning { color: #ffa940; }
+    .log-line.log-success { color: #52c41a; }
+    .log-line a.log-link { color: #5865f2 !important; text-decoration: underline; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>FLLAZ Reaction Spammer</h2>
+    <form id="form">
+      <label for="token">TOKEN</label>
+      <div style="position:relative;">
+        <input type="password" id="token" placeholder="TOKENを入力" style="width:100%;padding-right:36px;">
+        <button type="button" id="toggleTokenBtn" aria-label="マスク切替" style="position:absolute; right:8px; top:50%; transform:translateY(-50%); background:none; border:none; padding:0; margin:0; cursor:pointer; width:24px; height:24px; display:flex; align-items:center; justify-content:center; opacity:0.7;">
+          <span id="tokenMaskIcon">
+            <svg id="icon-eye" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"/></svg>
+          </span>
+        </button>
+      </div>
+
+      <label for="guildId">サーバーID</label>
+      <input type="text" id="guildId" required placeholder="123456789012345678">
+      
+      <button type="button" id="fetchChannelsBtn" class="secondary" style="margin-top: 12px; width: 100%;">チャンネルリスト取得</button>
+
+      <div id="channelListContainer" style="display: none;"></div>
+      
+      <hr style="border-color: #4f545c; margin: 24px 0;">
+
+      <label class="checkbox-container">
+        <input type="checkbox" id="useExternalEmojis">
+        <span>Nitro 絵文字</span>
+      </label>
+
+      <label class="checkbox-container">
+        <input type="checkbox" id="reverseOrder">
+        <span>古いメッセージからリアクションする</span>
+      </label>
+
+      <div>
+        <label for="messageLimit">メッセージ数</label>
+        <input type="number" id="messageLimit" min="1" max="100" value="10">
+      </div>
+      
+      <div>
+        <label for="interval">インターバル (ms)</label>
+        <input type="number" id="interval" min="0" max="5000" value="500">
+      </div>
+
+      <button id="submitBtn" type="submit" class="primary" disabled>リアクション開始</button>
+      <div class="button-group">
+        <button id="stopBtn" type="button" class="danger" disabled>停止</button>
+      </div>
+    </form>
+
+    <div id="log"></div>
+  </div>
+
+<script src="script.js"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"5185d1d6e63d4bd5800122b2e417eaa5","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>
